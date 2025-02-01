@@ -8,6 +8,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<String> _task = [
+
+  ];
+  TextEditingController _taskcontroller = TextEditingController();
+
+  _addTask(){
+  if(_taskcontroller.text.isNotEmpty){
+    setState(() {
+      _task.add(_taskcontroller.text);
+      _taskcontroller.clear();
+
+    });
+  }
+  }
+  _removeTask(int index){
+    {
+      setState(() {
+        _task.removeAt(index);
+
+      });
+    }
+  }
+
   int _count = 0;
   incrementCounter(){
     setState(() {
@@ -21,11 +44,37 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("Google",style: TextStyle(fontSize: 30),),
       ),
-      body:Center(
-        child: Text(_count.toString(),style: TextStyle(fontSize: 60,fontWeight: FontWeight.bold,color: Colors.blueAccent ),),
-        
+      body:Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          children: [
+            TextField(
+              controller: _taskcontroller,
+              decoration: InputDecoration(
+                hintText: "Enter Your Task",
+                border: OutlineInputBorder(),
+                suffixIcon: IconButton(onPressed: _addTask, icon: Icon(Icons.add))
+              ),
+
+            ),
+            SizedBox(height: 20,),
+
+           Expanded(
+             child: ListView.builder(
+                itemCount: _task.length,
+                 itemBuilder:(context,index){
+                  return Card(
+                    child: ListTile(
+                      title: Text(_task[index]),
+                      trailing: IconButton(onPressed:()=> _removeTask(index), icon: Icon(Icons.delete)),
+                    ),
+                  );
+                 }),
+           )
+          ],
+
+        ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed:incrementCounter,child: Icon(Icons.add,size: 30,),),
     );
   }
 }
