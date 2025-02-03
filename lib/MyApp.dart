@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ststefull/module9_class2.dart';
 
 import 'HomePage.dart';
+import 'module9_class1.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
             centerTitle: true,
           )
       ),
-      home: HomePage(),
+      home: ModuleNine(),
     );
   }
 }
